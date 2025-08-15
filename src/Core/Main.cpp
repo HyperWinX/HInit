@@ -7,6 +7,8 @@
 int main() {
     std::cout << "Starting up udevd...\n";
     system("/lib/systemd/systemd-udevd &> /dev/null &");
+    std::cout << "Starting up dhcpcd...\n";
+    system("/sbin/dhcpcd -q &");
     std::cout << "Mounting all volumes...\n";
     system("mount -a");
     /* Late startup */
