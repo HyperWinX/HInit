@@ -1,15 +1,18 @@
 #include <cstdlib>
 
 #include <unistd.h>
+#include <sys/wait.h>
 
 int main() {
     static char* args[] = {
+        "/sbin/agetty",
         "-o",
-        "'-- \\u'",
+        "-- \\u",
         "--noreset",
         "--noclear",
         "xterm",
-        "linux"
+        "linux",
+        NULL
     };
     while (1) {
         pid_t agetty = fork();
@@ -17,5 +20,7 @@ int main() {
             execv("/sbin/agetty", args);
             std::exit(1);
         }
+        int status;
+        waitpid(agetty, &status, 0);
     }
 }
