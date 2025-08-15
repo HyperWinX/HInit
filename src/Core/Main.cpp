@@ -6,8 +6,9 @@
 
 int main() {
     std::cout << "Mounting all volumes...\n";
-    system("mount / -o remount,rw");
-    system("mount -a");
+    system("fsck &> /dev/null");
+    system("mount / -o remount,rw &> /dev/null");
+    system("mount -a &> /dev/null");
     std::cout << "Starting up udevd...\n";
     system("/lib/systemd/systemd-udevd &> /dev/null &");
     system("udevadm trigger &> /dev/null");
