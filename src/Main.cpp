@@ -15,6 +15,7 @@ int main() {
         "linux",
         NULL
     };
+    system("mount -a");
     while (1) {
         pid_t agetty = fork();
         if (agetty == 0) {
