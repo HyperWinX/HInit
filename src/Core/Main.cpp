@@ -2,8 +2,14 @@
 
 #include <unistd.h>
 #include <sys/wait.h>
+#include <iostream>
 
 int main() {
+    std::cout << "Starting up DBus Broker...\n";
+    system("/usr/bin/dbus-broker-launch --scope system --audit");
+    std::cout << "Mounting all volumes...\n";
+    system("mount -a");
+    /* Late startup */
     static char* args[] = {
         "/sbin/agetty",
         "-o",
@@ -15,7 +21,6 @@ int main() {
         "linux",
         NULL
     };
-    system("mount -a");
     while (1) {
         pid_t agetty = fork();
         if (agetty == 0) {
