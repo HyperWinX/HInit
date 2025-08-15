@@ -6,9 +6,14 @@
 
 int main() {
     std::cout << "Mounting all volumes...\n";
-    system("fsck &> /dev/null");
+    system("fsck");
     system("mount / -o remount,rw &> /dev/null");
     system("mount -a &> /dev/null");
+    std::cout << "Setting up /dev...\n";
+    system("ln -sf /proc/self/fd /dev/fd");
+    system("ln -sf /proc/self/fd/0 /dev/stdin");
+    system("ln -sf /proc/self/fd/1 /dev/stdout");
+    system("ln -sf /proc/self/fd/2 /dev/stderr");
     std::cout << "Starting up udevd...\n";
     system("/lib/systemd/systemd-udevd &> /dev/null &");
     system("udevadm trigger &> /dev/null");
