@@ -4,22 +4,24 @@
 #include <sys/wait.h>
 #include <iostream>
 
+#include "spdlog/spdlog.h"
+
+#include "Steps.hpp"
+
 int main() {
-    std::cout << "Mounting all volumes...\n";
-    system("fsck");
-    system("mount / -o remount,rw &> /dev/null");
-    system("mount -a &> /dev/null");
-    std::cout << "Setting up /dev...\n";
-    system("ln -sf /proc/self/fd /dev/fd");
-    system("ln -sf /proc/self/fd/0 /dev/stdin");
-    system("ln -sf /proc/self/fd/1 /dev/stdout");
-    system("ln -sf /proc/self/fd/2 /dev/stderr");
-    std::cout << "Starting up udevd...\n";
-    system("/lib/systemd/systemd-udevd &> /dev/null &");
-    system("udevadm trigger &> /dev/null");
-    system("udevadm settle &> /dev/null");
-    std::cout << "Starting up dhcpcd...\n";
-    system("/sbin/dhcpcd -q &");
+    spdlog::set_pattern("[*] %v");
+
+    spdlog::info("Mounting all volumes");
+    HInit::MountAll();
+
+    spdlog::info("Setting up /dev");
+    HInit::SetupDev();
+
+    spdlog::info("Starting up udevd");
+    HInit::SetupUdevd();
+
+    spdlog::info("Starting up dhcpcd");
+    HInit::StartDhcpcd();
 
     /* Late startup */
     static char* args[] = {

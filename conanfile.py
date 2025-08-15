@@ -7,7 +7,8 @@ class HInit(ConanFile):
     settings = ["os", "compiler", "build_type", "arch"]
     author = "HyperWinX"
     requires = [
-        "boost/1.87.0"
+        "boost/1.87.0",
+        "spdlog/1.15.0"
     ]
     generators = ["CMakeToolchain", "CMakeDeps"]
 
