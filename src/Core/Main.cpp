@@ -5,8 +5,8 @@
 #include <iostream>
 
 int main() {
-    std::cout << "Starting up DBus Broker...\n";
-    system("/usr/bin/dbus-broker-launch --scope system --audit");
+    std::cout << "Starting up udevd...\n";
+    system("/lib/systemd/systemd-udevd");
     std::cout << "Mounting all volumes...\n";
     system("mount -a");
     /* Late startup */
