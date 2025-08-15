@@ -6,7 +6,7 @@
 
 int main() {
     std::cout << "Starting up udevd...\n";
-    system("/lib/systemd/systemd-udevd");
+    system("/lib/systemd/systemd-udevd &> /dev/null &");
     std::cout << "Mounting all volumes...\n";
     system("mount -a");
     /* Late startup */
