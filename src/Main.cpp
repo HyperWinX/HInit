@@ -5,16 +5,17 @@
 int main() {
     static char* args[] = {
         "-o",
-        "'-- \\\\u'",
+        "'-- \\u'",
         "--noreset",
         "--noclear",
-        "-",
-        "xterm"
+        "xterm",
+        "linux"
     };
-    pid_t agetty = fork();
-    if (agetty == 0) {
-        execv("/sbin/agetty", args);
-        std::exit(1);
+    while (1) {
+        pid_t agetty = fork();
+        if (agetty == 0) {
+            execv("/sbin/agetty", args);
+            std::exit(1);
+        }
     }
-    for (;;);
 }
