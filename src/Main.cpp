@@ -10,6 +10,7 @@ int main() {
         "-- \\u",
         "--noreset",
         "--noclear",
+        "-",
         "xterm",
         "linux",
         NULL
