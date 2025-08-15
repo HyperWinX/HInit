@@ -5,14 +5,16 @@
 #include <iostream>
 
 int main() {
+    std::cout << "Mounting all volumes...\n";
+    system("mount / -o remount,rw");
+    system("mount -a");
     std::cout << "Starting up udevd...\n";
     system("/lib/systemd/systemd-udevd &> /dev/null &");
     system("udevadm trigger &> /dev/null");
     system("udevadm settle &> /dev/null");
     std::cout << "Starting up dhcpcd...\n";
     system("/sbin/dhcpcd -q &");
-    std::cout << "Mounting all volumes...\n";
-    system("mount -a");
+
     /* Late startup */
     static char* args[] = {
         "/sbin/agetty",
