@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 #include <unistd.h>
 
 int main() {
@@ -9,5 +11,10 @@ int main() {
         "-",
         "xterm"
     };
-    execv("/sbin/agetty", args);
+    pid_t agetty = fork();
+    if (agetty == 0) {
+        execv("/sbin/agetty", args);
+        std::exit(1);
+    }
+    for (;;);
 }
