@@ -5,7 +5,7 @@ namespace HInit {
     inline char* udevadm_trigger_args[] = {"udevadm", "trigger"};
     inline char* udevadm_settle_args[] = {"udevadm", "settle"};
     void SetupUdevd() {
-        Utils::RunCommand(systemd_udevd_args[0], systemd_udevd_args);
+        Utils::RunCommand<Utils::RunMode::Background>(systemd_udevd_args[0], systemd_udevd_args);
         Utils::RunCommand(udevadm_trigger_args[0], udevadm_trigger_args);
         Utils::RunCommand(udevadm_settle_args[0], udevadm_settle_args);
     }
